@@ -2,64 +2,104 @@
 
 import React from "react";
 import Link from "next/link";
-// import { Github, Twitter, Linkedin } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 export function Footer() {
     return (
-        <footer className="w-full relative z-10 border-t border-white/20 bg-white/40 backdrop-blur-md">
-            <div className="max-w-6xl mx-auto px-6 py-8 md:py-12">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div className="md:col-span-2">
-                        <span className="text-2xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
-                            Platform
+        <footer className="w-full relative z-10 bg-[#faeefd] text-black border-t border-[#f0d4f6]">
+            <div className="max-w-6xl mx-auto px-6 py-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                    {/* Brand Section */}
+                    <div className="lg:col-span-1">
+                        <span className="text-2xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent flex items-center gap-2 mb-4">
+                            PH Campus Hero
                         </span>
-                        <p className="mt-4 text-slate-600 max-w-sm">
-                            Empowering your digital journey with modern, scalable, and beautiful solutions.
+                        <p className="text-sm text-black leading-relaxed mb-6 font-medium">
+                            Empowering students to lead, inspire, and make a real impact on their campuses. Join the movement and earn exclusive rewards.
                         </p>
-                        <div className="flex space-x-4 mt-6">
-                            <a href="#" className="text-slate-400 hover:text-indigo-500 transition-colors">
-                                {/* <Twitter size={20} /> */}
+                        <div className="flex space-x-4">
+                            <a href="#" className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-purple-600 hover:text-white transition-all shadow-sm">
+                                <FaFacebook size={18} />
                             </a>
-                            <a href="#" className="text-slate-400 hover:text-indigo-500 transition-colors">
-                                {/* <Github size={20} /> */}
+                            <a href="#" className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-purple-600 hover:text-white transition-all shadow-sm">
+                                <FaTwitter size={18} />
                             </a>
-                            <a href="#" className="text-slate-400 hover:text-indigo-500 transition-colors">
-                                {/* <Linkedin size={20} /> */}
+                            <a href="#" className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-purple-600 hover:text-white transition-all shadow-sm">
+                                <FaInstagram size={18} />
+                            </a>
+                            <a href="#" className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-purple-600 hover:text-white transition-all shadow-sm">
+                                <FaLinkedin size={18} />
                             </a>
                         </div>
                     </div>
 
+                    {/* Quick Links */}
                     <div>
-                        <h3 className="font-semibold text-slate-800 mb-4">Resources</h3>
-                        <ul className="space-y-3">
+                        <h3 className="text-black font-extrabold mb-6 tracking-wide uppercase text-sm">Quick Links</h3>
+                        <ul className="space-y-4">
                             <li>
-                                <Link href="#" className="text-slate-600 hover:text-indigo-600 transition-colors">Documentation</Link>
+                                <a href="#stats" className="text-sm text-black hover:text-purple-600 transition-colors font-semibold">Our Impact</a>
                             </li>
                             <li>
-                                <Link href="#" className="text-slate-600 hover:text-indigo-600 transition-colors">Blog</Link>
+                                <a href="#heroes" className="text-sm text-black hover:text-purple-600 transition-colors font-semibold">Campus Heroes</a>
                             </li>
                             <li>
-                                <Link href="#" className="text-slate-600 hover:text-indigo-600 transition-colors">Support</Link>
+                                <a href="#feedbacks" className="text-sm text-black hover:text-purple-600 transition-colors font-semibold">Testimonials</a>
+                            </li>
+                            <li>
+                                <a href="#register" className="text-sm text-black hover:text-purple-600 transition-colors font-semibold">Become an Ambassador</a>
                             </li>
                         </ul>
                     </div>
 
+                    {/* Resources & Legal */}
                     <div>
-                        <h3 className="font-semibold text-slate-800 mb-4">Legal</h3>
-                        <ul className="space-y-3">
+                        <h3 className="text-black font-extrabold mb-6 tracking-wide uppercase text-sm">Legal</h3>
+                        <ul className="space-y-4">
                             <li>
-                                <Link href="#" className="text-slate-600 hover:text-indigo-600 transition-colors">Privacy Policy</Link>
+                                <Link href="#" className="text-sm text-black hover:text-purple-600 transition-colors font-semibold">Privacy Policy</Link>
                             </li>
                             <li>
-                                <Link href="#" className="text-slate-600 hover:text-indigo-600 transition-colors">Terms of Service</Link>
+                                <Link href="#" className="text-sm text-black hover:text-purple-600 transition-colors font-semibold">Terms of Service</Link>
+                            </li>
+                            <li>
+                                <Link href="#" className="text-sm text-black hover:text-purple-600 transition-colors font-semibold">Cookie Policy</Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Contact Info */}
+                    <div>
+                        <h3 className="text-black font-extrabold mb-6 tracking-wide uppercase text-sm">Contact Us</h3>
+                        <ul className="space-y-4">
+                            <li className="flex items-start gap-3">
+                                <MapPin className="w-5 h-5 text-purple-600 shrink-0 mt-0.5" />
+                                <span className="text-sm text-black font-semibold">Level 4, House 1162, Road 10,<br/>Avenue 12, Mirpur DOHS, Dhaka</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <Phone className="w-5 h-5 text-purple-600 shrink-0 mt-0.5" />
+                                <div className="text-sm text-black font-semibold flex flex-col">
+                                    <span>যেকোন জিজ্ঞাসায় ফোন করো</span>
+                                    <span className="font-extrabold">01332502004</span>
+                                    <span className="text-xs text-gray-700">(Sat - Thu, 10:00 AM to 7:00 PM)</span>
+                                </div>
+                            </li>
+                            <li className="flex items-center gap-3">
+                                <Mail className="w-5 h-5 text-purple-600 shrink-0" />
+                                <span className="text-sm text-black font-semibold">web@programming-hero.com</span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <div className="mt-12 pt-8 border-t border-white/20 text-center md:flex md:justify-between md:text-left">
-                    <p className="text-slate-500 text-sm">
-                        &copy; {new Date().getFullYear()} Platform Inc. All rights reserved.
+                {/* Bottom Bar */}
+                <div className="mt-16 pt-8 border-t border-[#f0d4f6] flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p className="text-black text-sm font-semibold">
+                        &copy; {new Date().getFullYear()} PH Campus Hero. All rights reserved.
+                    </p>
+                    <p className="text-black text-sm font-semibold flex items-center gap-1">
+                        Made with <span className="text-red-500">❤</span> for Students
                     </p>
                 </div>
             </div>

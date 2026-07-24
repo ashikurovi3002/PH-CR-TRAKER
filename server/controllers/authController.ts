@@ -5,7 +5,12 @@ import { sendResponse } from '../utils/sendResponse';
 
 export class AuthController {
   static register = catchAsync(async (req: Request, res: Response) => {
-    const user = await AuthService.registerUser(req.body);
+    const data = { ...req.body };
+    if (req.file) {
+      data.profileImage = `/uploads/${req.file.filename}`;
+    }
+    
+    const user = await AuthService.registerUser(data);
     sendResponse(res, {
       statusCode: 201,
       message: 'User registered successfully',

@@ -19,6 +19,19 @@
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
   
+  /* Alias indigo to purple to match the new branding globally */
+  --color-indigo-50: var(--color-purple-50);
+  --color-indigo-100: var(--color-purple-100);
+  --color-indigo-200: var(--color-purple-200);
+  --color-indigo-300: var(--color-purple-300);
+  --color-indigo-400: var(--color-purple-400);
+  --color-indigo-500: var(--color-purple-500);
+  --color-indigo-600: var(--color-purple-600);
+  --color-indigo-700: var(--color-purple-700);
+  --color-indigo-800: var(--color-purple-800);
+  --color-indigo-900: var(--color-purple-900);
+  --color-indigo-950: var(--color-purple-950);
+  
   /* Rich aesthetic colors */
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);

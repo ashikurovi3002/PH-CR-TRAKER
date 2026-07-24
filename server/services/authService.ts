@@ -40,6 +40,13 @@ export class AuthService {
         email: true,
         phone: true,
         role: true,
+        campus: true,
+        department: true,
+        clubName: true,
+        status: true,
+        profileImage: true,
+        institutionType: true,
+        totalPoints: true,
         issueDate: true,
         createdAt: true,
         updatedAt: true

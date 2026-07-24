@@ -1,0 +1,32 @@
+model User {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  phone      String?
+  password   String?
+  role       String   @default("ambassador") // admin, ambassador
+  institutionType String? // POLYTECHNIC, UNIVERSITY
+  
+  // Ambassador specific fields
+  campus       String?
+  department   String?
+  clubName     String?
+  status       String   @default("PENDING") // PENDING, ACTIVE, BLOCKED
+  profileImage String?
+  totalPoints  Int      @default(0)
+
+  issueDate  DateTime @default(now())
+  loginLog   Json? // Can store array of login timestamps or IP addresses
+  
+  // Relationships
+  pointTransactions PointTransaction[]
+  redeemRequests    RedeemRequest[]
+  feedbacks         Feedback[]
+
+  resetPasswordToken   String?
+  resetPasswordExpires DateTime?
+  refreshToken         String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

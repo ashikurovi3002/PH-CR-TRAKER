@@ -10,7 +10,6 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import SocialLogin from "../SocialLogin";
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email format").required("Email is required"),
@@ -44,9 +43,14 @@ export function SignInForm() {
 
       if (response.ok) {
         toast.success("Signed in successfully!");
-        // Store token or handle session
-        // localStorage.setItem("token", result.data.token);
-        router.push("/dashboard");
+        localStorage.setItem("token", result.data.token);
+        localStorage.setItem("userRole", result.data.user.role);
+        
+        if (result.data.user.role === 'admin') {
+          router.push("/admin/dashboard");
+        } else {
+          router.push("/ambassador/dashboard");
+        }
       } else {
         toast.error(result.message || "Failed to sign in");
       }
@@ -59,58 +63,70 @@ export function SignInForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full">
-      <div className="space-y-2 text-left">
-        <Label htmlFor="email">Email</Label>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 w-full">
+      <div className="space-y-1.5 text-left">
+        <Label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</Label>
         <Input
           id="email"
           type="email"
           placeholder="m@example.com"
+          className="bg-gray-50/50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700 focus-visible:ring-indigo-500"
           {...register("email")}
           aria-invalid={!!errors.email}
         />
         {errors.email && (
-          <p className="text-sm text-red-500">{errors.email.message}</p>
+          <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>
         )}
       </div>
 
-      <div className="space-y-2 text-left">
-        <Label htmlFor="password">Password</Label>
+      <div className="space-y-1.5 text-left">
+        <Label htmlFor="password" className="text-sm font-medium text-gray-700 dark:text-gray-300">Password</Label>
         <Input
           id="password"
           type="password"
           placeholder="••••••••"
+          className="bg-gray-50/50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700 focus-visible:ring-indigo-500"
           {...register("password")}
           aria-invalid={!!errors.password}
         />
         {errors.password && (
-          <p className="text-sm text-red-500">{errors.password.message}</p>
+          <p className="text-xs text-red-500 mt-1">{errors.password.message}</p>
         )}
       </div>
 
-      <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? "Signing in..." : "Sign In"}
+      <div className="flex items-center justify-between mt-2">
+        <div className="flex items-center">
+          <input
+            id="remember-me"
+            name="remember-me"
+            type="checkbox"
+            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded cursor-pointer"
+          />
+          <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900 dark:text-gray-300 cursor-pointer">
+            Remember me
+          </label>
+        </div>
+
+        <div className="text-sm">
+          <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+            Forgot your password?
+          </a>
+        </div>
+      </div>
+
+      <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl h-12 mt-6" disabled={isLoading}>
+        {isLoading ? (
+          <span className="flex items-center gap-2">
+            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            Signing in...
+          </span>
+        ) : "Sign In"}
       </Button>
 
-      <div className="relative my-4">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t border-slate-200" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-white/80 px-2 text-slate-500 rounded-full">
-            Or continue with
-          </span>
-        </div>
-      </div>
-
-      <div className="flex justify-center w-full pb-2">
-        <SocialLogin />
-      </div>
-
-      <div className="text-center text-sm text-slate-500 mt-4">
+      <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-8 pt-6 border-t border-gray-100 dark:border-gray-800">
         Don't have an account?{" "}
-        <button type="button" onClick={() => router.push('/register')} className="text-indigo-600 hover:underline font-medium">
-          Sign up
+        <button type="button" onClick={() => router.push('/register')} className="text-indigo-600 hover:text-indigo-700 font-semibold hover:underline">
+          Sign up here
         </button>
       </div>
     </form>
