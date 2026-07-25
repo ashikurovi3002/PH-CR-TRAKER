@@ -31,6 +31,7 @@ export default function AdminUsersPage() {
   const [searchTerm, setSearchTerm] = useState("");
   
   // Add User Form State
+  const [showAddForm, setShowAddForm] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -166,8 +167,13 @@ export default function AdminUsersPage() {
             <h1 className="text-2xl font-bold tracking-tight">Ambassadors</h1>
             <p className="text-gray-500">Manage your ambassadors or manually register new ones.</p>
           </div>
+          <Button onClick={() => setShowAddForm(!showAddForm)} className="bg-indigo-600 hover:bg-indigo-700">
+            {showAddForm ? <X className="w-4 h-4 mr-2" /> : <UserPlus className="w-4 h-4 mr-2" />}
+            {showAddForm ? "Cancel" : "Add Ambassador"}
+          </Button>
         </div>
 
+        {showAddForm && (
         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm max-w-4xl">
           <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
             <UserPlus className="w-5 h-5 text-indigo-600" /> Manually Add Ambassador
@@ -248,6 +254,7 @@ export default function AdminUsersPage() {
             </div>
           </form>
         </div>
+        )}
       </section>
 
       {/* SECTION 2: ACTIVE USERS LIST */}

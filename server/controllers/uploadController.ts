@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { catchAsync } from '../utils/catchAsync';
 import { sendResponse } from '../utils/sendResponse';
+import { put } from '@vercel/blob';
 
 export class UploadController {
   static uploadFile = catchAsync(async (req: Request, res: Response) => {
@@ -12,20 +13,16 @@ export class UploadController {
       return;
     }
 
-    // Construct the backend URL for the file
-    // Generate a full URL using the request protocol and host, or fallback to localhost:5001
-    const protocol = req.protocol;
-    const host = req.get('host') || 'localhost:5001';
-    const baseUrl = process.env.API_URL || `${protocol}://${host}`;
-    
-    const fileUrl = `${baseUrl}/uploads/${req.file.filename}`;
+    const blob = await put(req.file.originalname, req.file.buffer, {
+      access: 'public',
+    });
 
     sendResponse(res, {
       statusCode: 200,
       message: 'File uploaded successfully',
       data: {
-        url: fileUrl,
-        filename: req.file.filename,
+        url: blob.url,
+        filename: req.file.originalname,
         mimetype: req.file.mimetype,
         size: req.file.size,
       },
@@ -41,16 +38,19 @@ export class UploadController {
       return;
     }
 
-    const protocol = req.protocol;
-    const host = req.get('host') || 'localhost:5001';
-    const baseUrl = process.env.API_URL || `${protocol}://${host}`;
+    const uploadPromises = req.files.map(async (file: any) => {
+      const blob = await put(file.originalname, file.buffer, {
+        access: 'public',
+      });
+      return {
+        url: blob.url,
+        filename: file.originalname,
+        mimetype: file.mimetype,
+        size: file.size,
+      };
+    });
 
-    const fileData = req.files.map((file: any) => ({
-      url: `${baseUrl}/uploads/${file.filename}`,
-      filename: file.filename,
-      mimetype: file.mimetype,
-      size: file.size,
-    }));
+    const fileData = await Promise.all(uploadPromises);
 
     sendResponse(res, {
       statusCode: 200,

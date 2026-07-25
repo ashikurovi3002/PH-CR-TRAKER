@@ -4,25 +4,8 @@ import path from 'path';
 import fs from 'fs';
 
 // Configure storage for multer
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Save files in the public/uploads directory so they can be statically served
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-    
-    // Ensure the directory exists
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-    
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    // Generate a unique filename: timestamp + random number + original extension
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    const ext = path.extname(file.originalname);
-    cb(null, file.fieldname + '-' + uniqueSuffix + ext);
-  },
-});
+// Using memory storage for Vercel Blob compatibility
+const storage = multer.memoryStorage();
 
 // Create the multer instance
 export const upload = multer({ 

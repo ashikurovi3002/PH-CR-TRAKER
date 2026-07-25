@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import api from "@/lib/axios";
 import { toast } from "sonner";
-import { Loader2, Plus, Calendar } from "lucide-react";
+import { Loader2, Plus, Calendar, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -12,6 +12,7 @@ export default function AdminActivitiesPage() {
   const [loading, setLoading] = useState(true);
   
   // Activity Form State
+  const [showAddForm, setShowAddForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [points, setPoints] = useState("");
@@ -68,10 +69,15 @@ export default function AdminActivitiesPage() {
           <h1 className="text-2xl font-bold tracking-tight">Manage Activities</h1>
           <p className="text-gray-500">Create and manage point-earning activities for ambassadors.</p>
         </div>
+        <Button onClick={() => setShowAddForm(!showAddForm)} className="bg-indigo-600 hover:bg-indigo-700">
+          {showAddForm ? <X className="w-4 h-4 mr-2" /> : <Plus className="w-4 h-4 mr-2" />}
+          {showAddForm ? "Cancel" : "Create Activity"}
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Form to add an activity */}
+        {showAddForm && (
         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm lg:col-span-1 h-fit">
           <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
             <Plus className="w-5 h-5 text-indigo-600" /> Create Activity
@@ -129,9 +135,10 @@ export default function AdminActivitiesPage() {
             </Button>
           </form>
         </div>
+        )}
 
         {/* Activities List Table */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm lg:col-span-2 overflow-hidden">
+        <div className={`bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden ${showAddForm ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
           <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
             <h2 className="text-lg font-bold">Active Activities</h2>
           </div>
