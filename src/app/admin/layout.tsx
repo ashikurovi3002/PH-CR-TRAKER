@@ -89,8 +89,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Mobile header */}
         <header className="h-16 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-4 md:hidden sticky top-0 z-20">
           <div className="flex items-center gap-2">
-            <img src="/logo.png" alt="Logo" className="w-8 h-8 rounded-md" />
-            <span className="text-lg font-bold text-indigo-600 dark:text-indigo-400">Admin</span>
+            <img src="/logo.png" alt="Logo" className="w-[150px] rounded-md" />
+
           </div>
           <Button variant="ghost" size="icon" onClick={handleLogout} className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20">
             <LogOut className="w-5 h-5" />
