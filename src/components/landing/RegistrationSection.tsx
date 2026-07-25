@@ -11,7 +11,7 @@ export function RegistrationSection() {
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-50 dark:bg-purple-900/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 -translate-x-1/3 translate-y-1/3"></div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-0 md:px-6 relative z-10 flex flex-col lg:flex-row items-center gap-16">
+      <div className="max-w-6xl mx-auto px-4 relative z-10 flex flex-col lg:flex-row items-center gap-16">
         <div className="flex-1 text-center lg:text-left">
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
             Ready to Become a <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Campus Hero?</span>
@@ -22,11 +22,11 @@ export function RegistrationSection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <div className="flex items-center gap-3 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
               <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold">1</div>
-              <p className="text-sm font-medium text-gray-700 dark:text-gray-300 text-left">Sign up with your<br/>campus details</p>
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300 text-left">Sign up with your<br />campus details</p>
             </div>
             <div className="flex items-center gap-3 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
               <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">2</div>
-              <p className="text-sm font-medium text-gray-700 dark:text-gray-300 text-left">Get approved by<br/>your admin</p>
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300 text-left">Get approved by<br />your admin</p>
             </div>
           </div>
         </div>

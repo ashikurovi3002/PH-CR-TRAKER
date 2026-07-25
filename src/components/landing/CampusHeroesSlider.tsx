@@ -66,7 +66,7 @@ export function CampusHeroesSlider() {
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 -translate-x-1/3 translate-y-1/3"></div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-0 md:px-6 relative z-10">
+      <div className="max-w-[1400px] mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row items-end justify-between mb-12">
           <div>
             <h2 className="text-4xl font-extrabold text-slate-900 mb-4 flex items-center gap-3">
@@ -78,13 +78,13 @@ export function CampusHeroesSlider() {
             </p>
           </div>
           <div className="flex gap-4 mt-6 md:mt-0">
-            <button 
+            <button
               onClick={scrollLeft}
               className="w-12 h-12 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all"
             >
               <ChevronLeft size={24} />
             </button>
-            <button 
+            <button
               onClick={scrollRight}
               className="w-12 h-12 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all"
             >
@@ -94,7 +94,7 @@ export function CampusHeroesSlider() {
         </div>
 
         {/* Cards Container */}
-        <div 
+        <div
           ref={scrollRef}
           className="flex gap-6 overflow-x-auto pb-12 pt-4 hide-scrollbar snap-x snap-mandatory"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
@@ -103,17 +103,17 @@ export function CampusHeroesSlider() {
             // Highlight the first card as active by default for demo, or based on some condition
             // Since it's a slider, we can apply hover states to make them all interactive.
             return (
-              <div 
-                key={hero.id} 
+              <div
+                key={hero.id}
                 className="group relative flex-none w-[300px] h-[420px] rounded-[2rem] overflow-hidden bg-white dark:bg-gray-800 snap-center cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(244,114,182,0.3)] hover:border-pink-500 border-2 border-transparent shadow-sm"
               >
                 {/* Image Section */}
                 <div className="absolute inset-0 h-[75%]">
                   {hero.profileImage ? (
-                    <img 
-                      src={hero.profileImage} 
-                      alt={hero.name} 
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 opacity-80 group-hover:opacity-100" 
+                    <img
+                      src={hero.profileImage}
+                      alt={hero.name}
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 opacity-80 group-hover:opacity-100"
                     />
                   ) : (
                     <div className="w-full h-full bg-pink-50 dark:bg-slate-800 flex items-center justify-center">
@@ -122,7 +122,7 @@ export function CampusHeroesSlider() {
                   )}
                   {/* Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-slate-900 via-white/20 dark:via-slate-900/40 to-transparent group-hover:from-pink-900 group-hover:via-pink-900/60 transition-colors duration-500"></div>
-                  
+
                   {/* Inner Overlay Content */}
                   <div className="absolute bottom-4 left-0 right-0 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-4 group-hover:translate-y-0 z-10">
                     <h4 className="text-white font-bold text-xl uppercase tracking-wider">{hero.name.split(' ')[0]}</h4>
