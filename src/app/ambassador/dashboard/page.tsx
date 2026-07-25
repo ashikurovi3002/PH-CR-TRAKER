@@ -182,21 +182,23 @@ export default function AmbassadorDashboard() {
             <div className="bg-white/10 backdrop-blur-md p-5 md:p-6 rounded-3xl border border-white/20">
                <div className="flex justify-between text-xs md:text-sm font-semibold mb-3">
                  <span>Current: {data?.totalPoints || 0}</span>
-                 <span className="text-indigo-200">Goal: 500</span>
+                 <span className="text-indigo-200">Goal: {data?.nextRewardGoal || "Max"}</span>
                </div>
                <div className="w-full bg-black/20 rounded-full h-2 md:h-3 overflow-hidden p-0.5">
                  <motion.div 
                    initial={{ width: 0 }}
-                   animate={{ width: `${Math.min(((data?.totalPoints || 0) / 500) * 100, 100)}%` }}
+                   animate={{ width: `${data?.nextRewardGoal ? Math.min(((data?.totalPoints || 0) / data.nextRewardGoal) * 100, 100) : 100}%` }}
                    transition={{ duration: 1.5, delay: 0.8, type: "spring" }}
                    className="bg-white h-full rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)]"
                  ></motion.div>
                </div>
                
                <p className="text-center font-medium mt-5 md:mt-6 bg-white/20 py-2 rounded-xl text-xs md:text-sm border border-white/10 shadow-inner">
-                 {500 - (data?.totalPoints || 0) > 0 
-                   ? `Only ${500 - (data?.totalPoints || 0)} points left!` 
-                   : "Goal reached! Time to redeem! 🎉"}
+                 {data?.nextRewardGoal
+                   ? data.nextRewardGoal - (data?.totalPoints || 0) > 0 
+                     ? `Only ${data.nextRewardGoal - (data?.totalPoints || 0)} points left!` 
+                     : "Goal reached! Time to redeem! 🎉"
+                   : "All rewards unlocked! 🎉"}
                </p>
             </div>
           </div>

@@ -24,7 +24,15 @@ export class AmbassadorService {
     
     const rank = usersRanked.findIndex(u => u.id === userId) + 1;
     const totalActivitiesCompleted = await prisma.pointTransaction.count({ where: { userId } });
-    const availableRewards = await prisma.reward.count({ where: { status: 'ACTIVE' } });
+    
+    // Fetch active rewards to determine next goal
+    const rewards = await prisma.reward.findMany({
+      where: { status: 'ACTIVE' },
+      orderBy: { requiredPoints: 'asc' }
+    });
+    const availableRewards = rewards.length;
+    const nextReward = rewards.find(r => r.requiredPoints > user.totalPoints);
+    const nextRewardGoal = nextReward ? nextReward.requiredPoints : null;
 
     // Fetch the admin assigned to this ambassador's institution type
     let adminWhere: any = { role: 'admin' };
@@ -41,6 +49,7 @@ export class AmbassadorService {
       rank: rank > 0 ? rank : null,
       activities: user.pointTransactions,
       availableRewards,
+      nextRewardGoal,
       totalActivitiesCompleted,
       adminContact
     };
