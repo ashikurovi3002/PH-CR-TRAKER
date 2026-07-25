@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UploadController = void 0;
 const catchAsync_1 = require("../utils/catchAsync");
 const sendResponse_1 = require("../utils/sendResponse");
+const blob_1 = require("@vercel/blob");
 class UploadController {
 }
 exports.UploadController = UploadController;
@@ -16,18 +17,15 @@ UploadController.uploadFile = (0, catchAsync_1.catchAsync)(async (req, res) => {
         });
         return;
     }
-    // Construct the backend URL for the file
-    // Generate a full URL using the request protocol and host, or fallback to localhost:5001
-    const protocol = req.protocol;
-    const host = req.get('host') || 'localhost:5001';
-    const baseUrl = process.env.API_URL || `${protocol}://${host}`;
-    const fileUrl = `${baseUrl}/uploads/${req.file.filename}`;
+    const blob = await (0, blob_1.put)(req.file.originalname, req.file.buffer, {
+        access: 'public',
+    });
     (0, sendResponse_1.sendResponse)(res, {
         statusCode: 200,
         message: 'File uploaded successfully',
         data: {
-            url: fileUrl,
-            filename: req.file.filename,
+            url: blob.url,
+            filename: req.file.originalname,
             mimetype: req.file.mimetype,
             size: req.file.size,
         },
@@ -41,15 +39,18 @@ UploadController.uploadMultipleFiles = (0, catchAsync_1.catchAsync)(async (req, 
         });
         return;
     }
-    const protocol = req.protocol;
-    const host = req.get('host') || 'localhost:5001';
-    const baseUrl = process.env.API_URL || `${protocol}://${host}`;
-    const fileData = req.files.map((file) => ({
-        url: `${baseUrl}/uploads/${file.filename}`,
-        filename: file.filename,
-        mimetype: file.mimetype,
-        size: file.size,
-    }));
+    const uploadPromises = req.files.map(async (file) => {
+        const blob = await (0, blob_1.put)(file.originalname, file.buffer, {
+            access: 'public',
+        });
+        return {
+            url: blob.url,
+            filename: file.originalname,
+            mimetype: file.mimetype,
+            size: file.size,
+        };
+    });
+    const fileData = await Promise.all(uploadPromises);
     (0, sendResponse_1.sendResponse)(res, {
         statusCode: 200,
         message: 'Files uploaded successfully',
