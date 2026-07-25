@@ -39,7 +39,7 @@ export function FeedbackSection() {
         <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[120px]"></div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="max-w-6xl mx-auto px-0 md:px-6 relative z-10">
         <div className="text-center mb-16">
           <p className="text-indigo-600 dark:text-indigo-400 font-semibold tracking-widest uppercase text-sm mb-3">Don't just take our word for it</p>
           <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">

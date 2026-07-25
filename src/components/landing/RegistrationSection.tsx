@@ -11,7 +11,7 @@ export function RegistrationSection() {
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-50 dark:bg-purple-900/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 -translate-x-1/3 translate-y-1/3"></div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center gap-16">
+      <div className="max-w-6xl mx-auto px-0 md:px-6 relative z-10 flex flex-col lg:flex-row items-center gap-16">
         <div className="flex-1 text-center lg:text-left">
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
             Ready to Become a <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Campus Hero?</span>

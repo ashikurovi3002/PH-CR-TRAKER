@@ -66,7 +66,7 @@ export function CampusHeroesSlider() {
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 -translate-x-1/3 translate-y-1/3"></div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+      <div className="max-w-[1400px] mx-auto px-0 md:px-6 relative z-10">
         <div className="flex flex-col md:flex-row items-end justify-between mb-12">
           <div>
             <h2 className="text-4xl font-extrabold text-slate-900 mb-4 flex items-center gap-3">
