@@ -15,6 +15,7 @@ const sidebarLinks = [
   { name: "Grant Points", href: "/admin/points/distribute", icon: Calculator },
   { name: "Redeems & Rewards", href: "/admin/redeems", icon: Gift },
   { name: "Feedbacks", href: "/admin/feedbacks", icon: MessageSquare },
+  { name: "Shop", href: "/admin/shop", icon: ShoppingBag },
   { name: "Profile", href: "/admin/profile", icon: Users },
   { name: "Banners", href: "/admin/banners", icon: ImageIcon },
 ];
@@ -97,7 +98,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </Button>
         </header>
 
-        <div className="flex-1 overflow-y-auto py-4 px-0 md:p-8 pb-24 md:pb-8">
+        <div className="flex-1 overflow-y-auto py-4 px-4 md:p-8 pb-24 md:pb-8">
           {children}
         </div>
 
