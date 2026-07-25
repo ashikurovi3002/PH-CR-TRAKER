@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Gift, Trophy, List, LogOut, Loader2, User as UserIcon, MessageSquare, Search, ChevronsUpDown } from "lucide-react";
+import { Home, LayoutDashboard, Gift, Trophy, List, LogOut, Loader2, User as UserIcon, MessageSquare, Search, ChevronsUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import api from "@/lib/axios";
 
 const sidebarLinks = [
+  { name: "Home", href: "/", icon: Home },
   { name: "Dashboard", href: "/ambassador/dashboard", icon: LayoutDashboard },
 
   { name: "Leaderboard", href: "/ambassador/leaderboard", icon: Trophy },

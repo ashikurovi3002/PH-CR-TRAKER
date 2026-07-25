@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Users, Activity, Gift, LogOut, Loader2, Calculator, ShoppingBag, MessageSquare, Search, ChevronsUpDown, Image as ImageIcon } from "lucide-react";
+import { Home, LayoutDashboard, Users, Activity, Gift, LogOut, Loader2, Calculator, ShoppingBag, MessageSquare, Search, ChevronsUpDown, Image as ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const sidebarLinks = [
+  { name: "Home", href: "/", icon: Home },
   { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
   { name: "Ambassador", href: "/admin/users", icon: Users },
   { name: "Prev Heroes", href: "/admin/prev-heroes", icon: Users },

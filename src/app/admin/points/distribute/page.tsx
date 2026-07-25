@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import api from "@/lib/axios";
 import { toast } from "sonner";
-import { Loader2, Calculator, Users as UsersIcon } from "lucide-react";
+import { Loader2, Calculator, Users as UsersIcon, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -16,25 +16,25 @@ export default function DistributePointsPage() {
   const [selectedUsers, setSelectedUsers] = useState<Set<number>>(new Set());
   const [note, setNote] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const fetchUsersAndActivities = async () => {
+    try {
+      const [actRes, userRes] = await Promise.all([
+        api.get('/admin/activities'),
+        api.get('/admin/users')
+      ]);
+      setActivities(actRes.data.data.filter((a: any) => a.status === 'ACTIVE') || []);
+      setUsers(userRes.data.data.filter((u: any) => u.status === 'ACTIVE') || []);
+    } catch (err) {
+      toast.error("Failed to load data");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [actRes, userRes] = await Promise.all([
-          api.get('/admin/activities'),
-          api.get('/admin/users')
-        ]);
-        // Only show active activities
-        setActivities(actRes.data.data.filter((a: any) => a.status === 'ACTIVE') || []);
-        // Only show active ambassadors
-        setUsers(userRes.data.data.filter((u: any) => u.status === 'ACTIVE') || []);
-      } catch (err) {
-        toast.error("Failed to load data");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
+    fetchUsersAndActivities();
   }, []);
 
   const currentActivityObj = activities.find(a => a.id.toString() === selectedActivity);
@@ -49,11 +49,16 @@ export default function DistributePointsPage() {
     setSelectedUsers(newSelected);
   };
 
+  const filteredUsers = users.filter((u: any) => 
+    u.name?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    u.email?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const selectAll = () => {
-    if (selectedUsers.size === users.length) {
+    if (selectedUsers.size === filteredUsers.length && filteredUsers.length > 0) {
       setSelectedUsers(new Set()); // Deselect all
     } else {
-      setSelectedUsers(new Set(users.map(u => u.id))); // Select all
+      setSelectedUsers(new Set(filteredUsers.map(u => u.id))); // Select all filtered
     }
   };
 
@@ -74,6 +79,7 @@ export default function DistributePointsPage() {
       setSelectedUsers(new Set());
       setNote("");
       setSelectedActivity("");
+      fetchUsersAndActivities();
     } catch (err: any) {
       toast.error(err?.response?.data?.message || "Failed to grant points");
     } finally {
@@ -150,21 +156,33 @@ export default function DistributePointsPage() {
 
           {/* Step 2: Select Users */}
           <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm lg:col-span-2 overflow-hidden flex flex-col">
-            <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-              <h2 className="text-lg font-bold flex items-center gap-2">
+            <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <h2 className="text-lg font-bold flex items-center gap-2 whitespace-nowrap">
                 <UsersIcon className="w-5 h-5 text-indigo-600" /> 2. Select Ambassadors
               </h2>
-              <Button variant="outline" size="sm" onClick={selectAll}>
-                {selectedUsers.size === users.length ? "Deselect All" : "Select All"}
-              </Button>
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <div className="relative flex-1 sm:w-64">
+                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+                  <Input
+                    type="search"
+                    placeholder="Search name or email..."
+                    className="pl-9 bg-gray-50 dark:bg-gray-900"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+                <Button variant="outline" size="sm" onClick={selectAll} className="whitespace-nowrap">
+                  {selectedUsers.size === filteredUsers.length && filteredUsers.length > 0 ? "Deselect All" : "Select All"}
+                </Button>
+              </div>
             </div>
             
             <div className="overflow-y-auto max-h-[600px] p-2">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 p-2">
-                {users.length === 0 ? (
-                  <p className="text-center text-gray-500 col-span-2 py-8">No active ambassadors found.</p>
+                {filteredUsers.length === 0 ? (
+                  <p className="text-center text-gray-500 col-span-2 py-8">No ambassadors found.</p>
                 ) : (
-                  users.map((user) => {
+                  filteredUsers.map((user) => {
                     const isSelected = selectedUsers.has(user.id);
                     return (
                       <div 
